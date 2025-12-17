@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Inventory Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <a href="#roster-section">Roster</a>
+        <a href="#instruments-section">Instruments</a>
+        <a href="#uniforms-section">Uniforms</a>
+        <a href="#assignments-section">Assignments</a>
+    </nav>
+    <h1> Marching Band Inventory Manager</h1>
+
+    <div id="assignments-section" class="inventory-section" style="background-color: #e6f7ff;">
+        <h2> Assignment Tracker (Final Step)</h2>
+        
+        <h3>Assign Gear to Student</h3>
+        <form id="add-assignment-form">
+            <label for="student_fk">Student:</label>
+            <select id="student_fk" required>
+                <option value="" disabled selected>Select Student</option>
+            </select><br>
+
+            <label for="instrument_fk">Instrument:</label>
+            <select id="instrument_fk" required>
+                <option value="" disabled selected>Select Instrument</option>
+            </select><br>
+
+            <label for="uniform_fk">Uniform Piece:</label>
+            <select id="uniform_fk" required>
+                <option value="" disabled selected>Select Uniform</option>
+            </select><br>
+
+            <label for="date_out">Date Out:</label>
+            <input type="date" id="date_out" required>
+
+            <label for="date_in">Date In (Optional):</label>
+            <input type="date" id="date_in"><br>
+
+            <button type="submit">Create Assignment</button>
+        </form>
+
+        <hr>
+
+        <h3>Current Assignments</h3>
+        <p id="loading-message-assignments">Loading assignment data...</p>
+        
+        <table id="assignments-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Grad Year</th>
+                    <th>Instrument Assigned</th>
+                    <th>Uniform Assigned</th>
+                    <th>Date Out</th>
+                    <th>Date In</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="assignments-body">
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="roster-section" class="inventory-section">
+        <h2>Roster (Students)</h2>
+        
+        <h3>Add New Student</h3>
+        <form id="add-student-form">
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" required>
+
+            <label for="graduation_year">Graduation Year:</label>
+            <input type="number" id="graduation_year" required>
+
+            <label for="instrument_played">Primary Instrument:</label>
+            <select id="instrument_played" required>
+                <option value="" disabled selected>Select Instrument</option>
+                <option value="Piccolo">Piccolo</option>
+                <option value="Clarinet">Clarinet</option>
+                <option value="Alto Saxophone">Alto Saxophone</option>
+                <option value="Tenor Saxophone">Tenor Saxophone</option>
+                <option value="Mellophone">Mellophone</option>
+                <option value="Baritone">Baritone</option>
+                <option value="Trombone">Trombone</option>
+                <option value="Sousaphone">Sousaphone</option>
+                <option value="Tenor Drum">Tenor Drum</option>
+                <option value="Bass Drum">Bass Drum</option>
+                <option value="Snare Drum">Snare Drum</option>
+                <option value="Quads">Quads</option>
+                <option value="Cymbals">Cymbals</option>
+            </select><br>
+
+            <button type="submit">Add Student</button>
+        </form>
+
+        <hr>
+
+        <h3>Current Roster</h3>
+        <input type="text" id="roster-search-input" placeholder="Search by name, year, or instrument..." style="width: 100%; padding: 8px; margin-bottom: 15px;">
+        <p id="loading-message-roster">Loading roster data...</p>
+        
+        <table id="roster-table" style="display: none;">
+            <tbody id="roster-body"></tbody>
+        </table>
+    </div>
+    
+    <div id="instruments-section" class="inventory-section">
+        <h2>Instruments Inventory</h2>
+
+        <h3>Add New Instrument</h3>
+        <form id="add-instrument-form">
+            <label for="instrument_name">Name (e.g., Trombone):</label>
+            <select id="instrument_name" required>
+                <option value="" disabled selected>Select Instrument</option>
+                <option value="Piccolo">Piccolo</option>
+                <option value="Clarinet">Clarinet</option>
+                <option value="Alto Saxophone">Alto Saxophone</option>
+                <option value="Tenor Saxophone">Tenor Saxophone</option>
+                <option value="Mellophone">Mellophone</option>
+                <option value="Baritone">Baritone</option>
+                <option value="Trombone">Trombone</option>
+                <option value="Sousaphone">Sousaphone</option>
+                <option value="Tenor Drum">Tenor Drum</option>
+                <option value="Bass Drum">Bass Drum</option>
+                <option value="Snare Drum">Snare Drum</option>
+                <option value="Quads">Quads</option>
+                <option value="Cymbals">Cymbals</option>
+            </select><br>
+
+            <label for="instrument_number">Instrument Number:</label>
+            <input type="text" id="instrument_number" required><br>
+            
+            <label for="locker_number">Locker Number:</label>
+            <input type="text" id="locker_number" required>
+
+            <label for="locker_code">Locker Code:</label>
+            <input type="text" id="locker_code" required><br>
+
+            <label for="condition_notes">Condition Notes:</label><br>
+            <textarea id="condition_notes"></textarea><br>
+
+            <button type="submit">Add Instrument</button>
+        </form>
+
+        <hr>
+
+        <h3>Current Instrument Inventory</h3>
+        <p id="loading-message-instruments">Loading instrument data...</p>
+        
+        <table id="instrument-table" style="display: none;">
+            <tbody id="instrument-body"></tbody>
+        </table>
+    </div>
+
+    <div id="uniforms-section" class="inventory-section">
+        <h2>Uniforms Inventory</h2>
+
+        <h3>Add New Uniform Piece</h3>
+        <form id="add-uniform-form">
+            <label for="item_type">Item Type (e.g., Jacket, Pants):</label>
+            <select id="item_type" required>
+                <option value="" disabled selected>Select Uniform Type</option>
+                <option value="Shako">Shako</option>
+                <option value="Long Coat">Long Coat</option>
+                <option value="Bibbers">Bibbers</option>
+                <option value="Poncho">Poncho</option>
+            </select><br>
+
+            <label for="size">Size (e.g., M, L, XL):</label>
+            <input type="text" id="size" required>
+            
+            <label for="item_number">Uniform Number:</label>
+            <input type="text" id="item_number" required><br>
+            
+            <label for="status">Condition/Status:</label><br>
+            <textarea id="status"></textarea><br>
+
+            <button type="submit">Add Uniform</button>
+        </form>
+
+        <hr>
+
+        <h3>Current Uniform Inventory</h3>
+        <p id="loading-message-uniforms">Loading uniform data...</p>
+        
+        <table id="uniform-table" style="display: none;">
+            <tbody id="uniform-body"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
